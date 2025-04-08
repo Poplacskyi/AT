@@ -1,6 +1,6 @@
 package lab1_2;
 
-public class Main { // Клас з іменем Main
+public class Lab1Main { // Клас з іменем Main
     public static void main(String[] args) {
         int[] numbers = {3, 6, 9, 12, 15, 18};
 

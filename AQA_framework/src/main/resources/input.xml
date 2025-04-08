@@ -1,0 +1,9 @@
+<data>
+    <isEmployed>false</isEmployed>
+    <name>Jessica</name>
+    <address>
+        <street>234 Elm St</street>
+        <city>Boston</city>
+        <state>MA</state>
+    </address>
+</data>

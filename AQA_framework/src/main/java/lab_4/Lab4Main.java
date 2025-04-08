@@ -1,4 +1,4 @@
-public class Main {
+public class Lab4Main {
     public static void main(String[] args) throws Exception {
         // Запуск потоку
         HelloWorldThread thread = new HelloWorldThread();

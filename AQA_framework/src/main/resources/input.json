@@ -1,0 +1,9 @@
+{
+  "isEmployed": false,
+  "name": "Jessica",
+  "address": {
+    "street": "234 Elm St",
+    "city": "Boston",
+    "state": "MA"
+  }
+}
