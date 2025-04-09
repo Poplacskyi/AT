@@ -7,13 +7,17 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/aqa_framework</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">my_password</property>
+
+        <property name="hibernate.connection.password">Lyubko00</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="lab_6.Person"/>
         <mapping class="lab_6.model.Address"/>
-
+        <mapping class="lab_7.Passport"/>
+        <mapping class="lab_7.Project"/>
     </session-factory>
 </hibernate-configuration>
+
+
