@@ -1,68 +1,68 @@
 package lab_12;
 
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.*;
 
+import java.time.Duration;
 
 public class ButtonsPage {
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
-    @FindBy(id = "doubleClickBtn")
-    private WebElement doubleClickBtn;
+    // Локатори для кнопок та повідомлень
+    private By doubleClickBtn = By.id("doubleClickBtn");
+    private By rightClickBtn = By.id("rightClickBtn");
+    private By dynamicClickBtn = By.xpath("//button[text()='Click Me']");
 
-    @FindBy(id = "rightClickBtn")
-    private WebElement rightClickBtn;
+    private By doubleClickMsg = By.id("doubleClickMessage");
+    private By rightClickMsg = By.id("rightClickMessage");
+    private By dynamicClickMsg = By.id("dynamicClickMessage");
 
-    @FindBy(xpath = "//button[text()='Click Me']")
-    private WebElement dynamicClickBtn;
-
-    @FindBy(id = "doubleClickMessage")
-    private WebElement doubleClickMsg;
-
-    @FindBy(id = "rightClickMessage")
-    private WebElement rightClickMsg;
-
-    @FindBy(id = "dynamicClickMessage")
-    private WebElement dynamicClickMsg;
+    // Використовуємо XPath локатор, який шукає елемент із класами, що містять 'main-header' або 'playgound-header'
+    private By headerLocator = By.xpath("//*[contains(@class, 'main-header') or contains(@class, 'playgound-header')]");
 
     public ButtonsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        // Використовуємо трохи більший час очікування – 15 секунд
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public WebElement getLabel() {
-        return driver.findElement(By.xpath("//div[@class='main-header']"));
+    // Метод повертає обгортку (wrapper) для заголовка сторінки
+    public LabelWrapper getLabelWrapper() {
+        WebElement headerElement = wait.until(ExpectedConditions.visibilityOfElementLocated(headerLocator));
+        return new LabelWrapper(headerElement);
     }
 
     public void doubleClickButton() {
-        new Actions(driver).doubleClick(doubleClickBtn).perform();
+        WebElement btn = driver.findElement(doubleClickBtn);
+        new Actions(driver).doubleClick(btn).perform();
     }
 
     public void rightClickButton() {
-        new Actions(driver).contextClick(rightClickBtn).perform();
+        WebElement btn = driver.findElement(rightClickBtn);
+        new Actions(driver).contextClick(btn).perform();
     }
 
     public void dynamicClickButton() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dynamicClickBtn);
-        dynamicClickBtn.click();
+        WebElement btn = driver.findElement(dynamicClickBtn);
+        // Прокрутка до елемента (якщо потрібно)
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btn);
+        btn.click();
     }
 
     public String getDoubleClickMessage() {
-        return doubleClickMsg.getText();
+        return driver.findElement(doubleClickMsg).getText();
     }
 
     public String getRightClickMessage() {
-        return rightClickMsg.getText();
+        return driver.findElement(rightClickMsg).getText();
     }
 
     public String getDynamicClickMessage() {
-        return dynamicClickMsg.getText();
+        return driver.findElement(dynamicClickMsg).getText();
     }
 }
