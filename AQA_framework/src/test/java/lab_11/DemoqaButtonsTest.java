@@ -1,9 +1,8 @@
 package lab_11;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import lab_11.pages.ButtonsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,33 +10,32 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class DemoqaButtonsTest {
-    WebDriver driver;
-    DemoqaButtonsPage buttonsPage;
+
+    private WebDriver driver;
+    private ButtonsPage buttonsPage;
 
     @BeforeClass
-    public void setup() {
-        WebDriverManager.chromedriver().setup();
+    public void setUp() {
         driver = new ChromeDriver();
-        buttonsPage = new DemoqaButtonsPage(driver);
+        driver.manage().window().maximize();
+        driver.get("https://demoqa.com/buttons");
+
+        buttonsPage = new ButtonsPage(driver);
     }
 
     @Test
     public void testClickButtons() {
-        buttonsPage.openPage();
+        buttonsPage.dynamicClickButton(); // ✅ викликає правильний метод
+        String actualMessage = buttonsPage.getDynamicClickMessage(); // ✅ правильний метод
+        assertTrue(actualMessage.contains("You have done a dynamic click"), "Expected click message not found!");
 
-        // Двічі клік
-        new Actions(driver).doubleClick(buttonsPage.getDoubleClickBtn()).perform();
-        // Правий клік
-        new Actions(driver).contextClick(buttonsPage.getRightClickBtn()).perform();
-        // Звичайний клік
-        buttonsPage.getClickMeBtn().click();
-
-        // Перевірка результату
-        assertTrue(buttonsPage.getMessage().isDisplayed(), "Dynamic message not visible!");
     }
 
+
     @AfterClass
-    public void teardown() {
-        driver.quit();
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

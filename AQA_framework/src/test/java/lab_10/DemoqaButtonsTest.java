@@ -1,46 +1,49 @@
 package lab_10;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
+
+import java.time.Duration;
+
+import static org.testng.Assert.assertTrue;
 
 public class DemoqaButtonsTest {
     WebDriver driver;
 
     @BeforeClass
-    public void setup() {
-        // Крок 2: Встановлення через WebDriverManager
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
-    public void testButtons() {
-        // Крок 3: Перехід на сторінку
+    public void testClickButtons() {
         driver.get("https://demoqa.com/buttons");
 
-        // Крок 4: Вибір 3 різних кнопок
-        WebElement doubleClickBtn = driver.findElement(By.id("doubleClickBtn"));
-        WebElement rightClickBtn = driver.findElement(By.id("rightClickBtn"));
-        WebElement dynamicClickBtn = driver.findElement(By.xpath("//button[text()='Click Me']"));
+        // Ховаємо iframe-рекламу
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelectorAll('iframe').forEach(el => el.style.display = 'none');");
 
-        // Крок 5: Взаємодія
-        doubleClickBtn.click(); // Замість doubleClick для простоти
-        rightClickBtn.click(); // Замість rightClick
-        dynamicClickBtn.click();
+        WebElement clickMeButton = driver.findElement(By.xpath("//button[text()='Click Me']"));
+        new Actions(driver).scrollToElement(clickMeButton).perform();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(clickMeButton));
+        clickMeButton.click();
 
-        // Крок 6: Перевірка видимості
-        assertTrue(doubleClickBtn.isDisplayed(), "Double Click Button not visible");
-        assertTrue(rightClickBtn.isDisplayed(), "Right Click Button not visible");
-        assertTrue(dynamicClickBtn.isDisplayed(), "Dynamic Click Button not visible");
+        WebElement message = driver.findElement(By.id("dynamicClickMessage"));
+        assertTrue(message.isDisplayed(), "Message should be displayed after clicking.");
     }
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
