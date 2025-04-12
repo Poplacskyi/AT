@@ -1,29 +1,31 @@
 package lab_12;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class LabelTest {
-
-    WebDriver driver;
-    ButtonsPage buttonsPage;
+    private WebDriver driver;
+    private ButtonsPage buttonsPage;
 
     @BeforeClass
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://demoqa.com/buttons");
+
         buttonsPage = new ButtonsPage(driver);
     }
 
     @Test
-    public void testLabelFunctions() {
-        LabelWrapper label = buttonsPage.getLabel();
-        label.getText();
-        label.waitForText("Buttons");
-        label.verifyLabelExists();
+    public void testLabel() {
+        LabelWrapper labelWrapper = new LabelWrapper(buttonsPage.getLabel());
+
+        labelWrapper.getText();
+        labelWrapper.waitForText("You have clicked");
+        labelWrapper.verifyLabelExists();
     }
 
     @AfterClass
