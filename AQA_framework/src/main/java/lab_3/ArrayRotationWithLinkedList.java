@@ -32,21 +32,7 @@ public class ArrayRotationWithLinkedList {
 
         System.out.println("Initial LinkedList: " + list);
 
-        //  Додавання елемента на початок
-        list.addFirst(99);
-        System.out.println("After adding 99 to the beginning: " + list);
 
-        //  Додавання елемента в кінець
-        list.addLast(100);
-        System.out.println("After adding 100 to the end: " + list);
-
-        //  Видалення першого елемента
-        list.removeFirst();
-        System.out.println("After removing the first element: " + list);
-
-        //  Видалення останнього елемента
-        list.removeLast();
-        System.out.println("After removing the last element: " + list);
 
         //  Виведення у зворотному порядку
         System.out.print("List in reverse order: ");
