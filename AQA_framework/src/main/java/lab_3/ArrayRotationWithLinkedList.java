@@ -52,6 +52,15 @@ public class ArrayRotationWithLinkedList {
         for (int i = 0; i < length; i++) {
             result[(i + positions) % length] = array[i];
         }
+
+
+
+        try {
+            System.out.println("Trying to divide by zero to simulate ArithmeticException...");
+            int error = 10 / 0;
+       } catch (ArithmeticException e) {
+           System.out.println("Custom error: Cannot divide by zero. This operation is undefined.");
+       }
         return result;
     }
 }
