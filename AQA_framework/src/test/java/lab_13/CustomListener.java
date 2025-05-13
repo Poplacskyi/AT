@@ -10,14 +10,14 @@ import java.util.Date;
 
 public class CustomListener implements ITestListener, ISuiteListener, IExecutionListener, IInvokedMethodListener {
     private static final Logger logger = Logger.getLogger(CustomListener.class);
-    private VideoRecorder videoRecorder = new VideoRecorder(); // Стаб для відеозйомки
+    private VideoRecorder videoRecorder = new VideoRecorder(); //для відеозйомки
 
     // ----------------- ISuiteListener -----------------
     @Override
     public void onStart(ISuite suite) {
         logger.info("ISuiteListener onStart: Setting up environment for suite: " + suite.getName());
         // Наприклад, підключення до БД:
-        // DatabaseHelper.connect();
+       2
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CustomListener implements ITestListener, ISuiteListener, IExecution
     @Override
     public void onExecutionFinish() {
         logger.info("IExecutionListener onExecutionFinish: Test execution finished.");
-        // Запис у БД або очищення ресурсів.
+        
     }
 
     // ----------------- ITestListener -----------------
@@ -61,8 +61,7 @@ public class CustomListener implements ITestListener, ISuiteListener, IExecution
     @Override
     public void onTestSuccess(ITestResult result) {
         logger.info("ITestListener onTestSuccess: Test method succeeded: " + result.getMethod().getMethodName());
-        // Додати запис про успішний результат до БД, якщо потрібно.
-        // DatabaseHelper.insertTestResult(result.getMethod().getMethodName(), "PASS");
+    
     }
 
     @Override
@@ -75,8 +74,7 @@ public class CustomListener implements ITestListener, ISuiteListener, IExecution
         saveHtmlSource(result);
         // Запустити відеозйомку (або зупинити запис і зберегти відео):
         videoRecorder.recordFailure(result);
-        // Додати запис з результатом "FAIL" до БД.
-        // DatabaseHelper.insertTestResult(result.getMethod().getMethodName(), "FAIL");
+        
     }
 
     @Override
@@ -93,8 +91,7 @@ public class CustomListener implements ITestListener, ISuiteListener, IExecution
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         logger.info("IInvokedMethodListener beforeInvocation: " + method.getTestMethod().getMethodName());
-        // Логування початку виклику тесту (можна записувати до БД).
-        // DatabaseHelper.logInvocationStart(method.getTestMethod().getMethodName());
+       
     }
 
     @Override

@@ -5,7 +5,7 @@
         <parameter name="b" value="2"/>
         <parameter name="c" value="3"/>
         <classes>
-            <class name="Lab2Tests"/>
+            <class name="lab_12.Lab2Tests"/>
         </classes>
     </test>
 </suite>

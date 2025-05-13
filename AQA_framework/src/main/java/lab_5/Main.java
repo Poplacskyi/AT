@@ -9,7 +9,7 @@ public class Main {
         // 2. Stream API
         RandomPersonGenerator.streamOps();
 
-        // 3. Maven аргумент (опціонально)
+        // 3. Maven аргумент
         if (args.length > 0) {
             int n = Integer.parseInt(args[0]);
             System.out.println("Generated " + n + " people:");
